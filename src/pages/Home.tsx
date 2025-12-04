@@ -23,6 +23,9 @@ function Home() {
         <Link to="/boxresizer" className="glass-link">
           Box Resizer
         </Link>
+        <Link to="/cameramodeswitcher" className="glass-link">
+          Camera Modes
+        </Link>
       </div>
     </div>
   );

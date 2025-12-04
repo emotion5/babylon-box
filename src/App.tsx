@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import GLBLoader from './pages/GLBLoader'
 import MaterialDemo from './pages/MaterialDemo'
 import BoxResizer from './pages/BoxResizer'
+import CameraModeSwitcher from './pages/CameraModeSwitcher'
 import './App.css'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/glbloader" element={<GLBLoader />} />
         <Route path="/materialdemo" element={<MaterialDemo />} />
         <Route path="/boxresizer" element={<BoxResizer />} />
+        <Route path="/cameramodeswitcher" element={<CameraModeSwitcher />} />
       </Routes>
     </BrowserRouter>
   )
