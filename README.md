@@ -1,73 +1,40 @@
-# React + TypeScript + Vite
+# Babylon Box
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Babylon.js의 다양한 기능을 하나씩 실험하고 학습하기 위한 프로젝트입니다.
 
-Currently, two official plugins are available:
+## 🎯 프로젝트 목표
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+이 프로젝트의 주된 목적은 **학습**입니다. 복잡한 애플리케이션을 만들기보다는, Babylon.js가 제공하는 핵심 기능들을 하나씩 떼어내어 구현해보고 그 원리를 파악하는 데 집중합니다.
 
-## React Compiler
+## 📝 개발 원칙
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1.  **단순함과 명료함 (Simplicity & Clarity)**
+    *   한 번에 하나의 기능만 구현합니다.
+    *   코드는 이해하기 쉽고 직관적이어야 합니다.
+    *   복잡한 로직이나 과도한 엔지니어링을 지양합니다.
 
-## Expanding the ESLint configuration
+2.  **독립적인 구성 (Modularity)**
+    *   각 기능은 가능한 한 독립적인 페이지나 파일로 분리하여 구현합니다. (예: `GLBLoader`, `BoxResizer`)
+    *   새로운 기능을 추가할 때는 기존 코드를 복잡하게 만들기보다, 새로운 데모 페이지를 추가하는 방식을 선호합니다.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+3.  **학습 중심 (Learning-Oriented)**
+    *   기능 구현 과정을 통해 Babylon.js의 API와 동작 방식을 깊이 있게 이해합니다.
+    *   각 데모는 특정 기능(예: 로더, 머터리얼, 인터랙션)을 설명하는 예제가 됩니다.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🚀 현재 구현된 데모
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+*   **GLB Loader**: `.glb`, `.gltf` 파일을 드래그하거나 선택하여 3D 모델을 로드하고 확인하는 기능.
+*   **Material & Edges**: 박스 메시를 생성하고, 솔리드 모드와 엣지 렌더링(Outline) 모드를 전환하며 머터리얼 속성을 테스트.
+*   **Box Resizer**: 입력 필드를 통해 박스의 X, Y, Z 크기를 실시간으로 조절하며 메시의 변형(Scaling) 원리 학습.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🛠️ 기술 스택
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+*   React
+*   TypeScript
+*   Vite
+*   Babylon.js
+*   Tauri (예정/기반)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🎨 스타일 가이드
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+*   **Glassmorphism**: 다크 모드 기반의 깔끔하고 현대적인 UI 스타일을 적용하여, 기능 확인에 방해가 되지 않으면서도 시각적인 만족감을 줍니다.
