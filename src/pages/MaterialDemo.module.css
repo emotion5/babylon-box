@@ -1,22 +1,25 @@
 .container {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
 .canvas {
   width: 100%;
   height: 100%;
   display: block;
+  touch-action: none;
   outline: none;
 }
 
-.fileInput {
+.toggleButton {
   position: absolute;
   top: 20px;
   left: 20px;
-  padding: 10px 16px;
+  z-index: 10;
   
+  /* Glassmorphism Style */
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -25,17 +28,22 @@
   box-shadow: var(--glass-shadow);
   
   color: var(--text-color);
+  padding: 12px 24px;
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.fileInput:hover {
+.toggleButton:hover {
   background: var(--glass-bg-hover);
   border-color: var(--primary-color);
   color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 210, 255, 0.2);
 }
 
-/* Custom file input styling usually requires a label wrapper trick, 
-   but standard input styling is limited. For now, glass style is applied to the input box itself. */
+.toggleButton:active {
+  transform: translateY(0);
+}

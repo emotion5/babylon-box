@@ -1,51 +1,31 @@
-import { useEffect, useRef } from 'react'
-import { Engine, Scene, ArcRotateCamera, HemisphericLight, MeshBuilder, Vector3 } from '@babylonjs/core'
+import { Link } from 'react-router-dom';
+// App.css is already imported in App.tsx, so classes are available globally
 
 function Home() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-
-  useEffect(() => {
-    if (!canvasRef.current) return
-
-    const canvas = canvasRef.current
-    const engine = new Engine(canvas, true)
-    const scene = new Scene(engine)
-
-    const camera = new ArcRotateCamera(
-      'camera',
-      -Math.PI / 2,
-      Math.PI / 2.5,
-      3,
-      new Vector3(0, 0, 0),
-      scene
-    )
-    camera.attachControl(canvas, true)
-
-    const light = new HemisphericLight('light', new Vector3(0, 1, 0), scene)
-    light.intensity = 0.7
-
-    const box = MeshBuilder.CreateBox('box', { size: 2 }, scene)
-
-    engine.runRenderLoop(() => {
-      scene.render()
-    })
-
-    const handleResize = () => {
-      engine.resize()
-    }
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      engine.dispose()
-    }
-  }, [])
-
   return (
-    <div style={{ width: '100%', height: '100%', margin: 0, padding: 0 }}>
-      <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
+    <div style={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      height: '100vh',
+      width: '100vw'
+    }}>
+      <div className="glass-card">
+        <h1 style={{ margin: 0, fontSize: '2rem', color: 'var(--primary-color)' }}>Babylon Box</h1>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>Select a demo to start</p>
+        
+        <Link to="/glbloader" className="glass-link">
+          GLB Loader
+        </Link>
+        <Link to="/materialdemo" className="glass-link">
+          Material & Edges
+        </Link>
+        <Link to="/boxresizer" className="glass-link">
+          Box Resizer
+        </Link>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
