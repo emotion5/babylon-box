@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Engine, Scene, ArcRotateCamera, HemisphericLight, Vector3, SceneLoader } from '@babylonjs/core'
 import '@babylonjs/loaders/glTF'
+import styles from './GLBLoader.module.css'
 
 function GLBLoader() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -18,11 +19,13 @@ function GLBLoader() {
       'camera',
       -Math.PI / 2,
       Math.PI / 2.5,
-      5,
+      2,
       new Vector3(0, 0, 0),
       scene
     )
-    camera.attachControl(canvas, true)
+    camera.attachControl(canvas, false)
+    camera.wheelPrecision = -50
+    camera.invertRotation = true
 
     const light = new HemisphericLight('light', new Vector3(0, 1, 0), scene)
     light.intensity = 0.7
@@ -38,6 +41,8 @@ function GLBLoader() {
 
     return () => {
       window.removeEventListener('resize', handleResize)
+      sceneRef.current = null
+      scene.dispose()
       engine.dispose()
     }
   }, [])
@@ -49,32 +54,25 @@ function GLBLoader() {
     const scene = sceneRef.current
     scene.meshes.forEach(mesh => mesh.dispose())
 
-    const url = URL.createObjectURL(file)
+    const objectUrl = URL.createObjectURL(file)
+    // Extract file extension to help SceneLoader choose the correct plugin
+    const fileExtension = '.' + file.name.split('.').pop()
+
     try {
-      await SceneLoader.ImportMeshAsync('', '', url, scene, undefined, '.glb')
+      await SceneLoader.ImportMeshAsync('', '', objectUrl, scene, undefined, fileExtension)
     } finally {
-      URL.revokeObjectURL(url)
+      URL.revokeObjectURL(objectUrl)
     }
   }
 
   return (
-    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
+    <div className={styles.container}>
+      <canvas ref={canvasRef} className={styles.canvas} />
       <input
         type="file"
         accept=".glb,.gltf"
         onChange={handleFileChange}
-        style={{
-          position: 'absolute',
-          top: '20px',
-          left: '20px',
-          padding: '10px',
-          background: 'rgba(0,0,0,0.7)',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer'
-        }}
+        className={styles.fileInput}
       />
     </div>
   )
